@@ -38,9 +38,37 @@ parser.add_argument('-p', '--port', {
   help: 'Port to run on (default: 8001)',
 })
 
+parser.add_argument('-de', '--dynamodb-endpoint', {
+  dest: 'DYNAMO_ENDPOINT',
+  type: 'str',
+  default: 'http://localhost:8000',
+  help: 'DynamoDB endpoint',
+})
+
+parser.add_argument('-a', '--aws-access-key', {
+  dest: 'AWS_ACCESS_KEY_ID',
+  type: 'str',
+  default: 'fakeMyKeyId',
+  help: 'AWS Access Key',
+})
+
+parser.add_argument('-s', '--aws-secret-key', {
+  dest: 'AWS_SECRET_ACCESS_KEY',
+  type: 'str',
+  default: 'fakeSecretAccessKey',
+  help: 'AWS Secret Key',
+})
+
+parser.add_argument('-r', '--region', {
+  dest: 'AWS_REGION',
+  type: 'str',
+  default: 'us-east-1',
+  help: 'AWS Region',
+})
+
 const args = parser.parse_args()
 
-const app = createServer()
+const app = createServer(args)
 const host = process.env.HOST || args.host
 const port = process.env.PORT || args.port
 const server = app.listen(port, host)
